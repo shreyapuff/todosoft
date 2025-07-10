@@ -1,0 +1,302 @@
+:root {
+  --bg: #fffdfc;
+  --text: #3e2a3a;
+  --accent-pink: #fbb1cf;
+  --accent-blue: #a6d8f5;
+  --accent-yellow: #ffe599;
+  --accent-green: #b5e8c5;
+  --accent-purple: #d5c1f8;
+  --accent-orange: #ffd1a9;
+  --card: #ffffff;
+  --border: #ecdce5;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --font-body: 'Quicksand', sans-serif;
+  --font-code: 'Fira Code', monospace;
+  --radius: 1.25rem;
+}
+
+[data-theme="dark"] {
+  --bg: #1a151a;
+  --text: #fef4ff;
+  --accent-pink: #f79ab9;
+  --accent-blue: #93cbee;
+  --accent-yellow: #f6dd80;
+  --accent-green: #a2d6b4;
+  --accent-purple: #c1acf3;
+  --accent-orange: #f3caa0;
+  --card: #261f29;
+  --border: #382c3c;
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .todo__field {
+  color: white;
+  background: var(--card);
+  border: 2px solid var(--border);
+}
+
+/* === Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 2rem;
+}
+button,
+input {
+  font-family: inherit;
+  font-size: 1rem;
+  border: none;
+}
+input:focus,
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* === Skip Link === */
+.skip-link {
+  position: absolute;
+  left: -1000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin-bottom: 1rem;
+  background: var(--accent-yellow);
+  padding: 0.5rem 1rem;
+  display: block;
+}
+
+/* === Layout === */
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* === Header === */
+.header {
+  text-align: center;
+}
+.header__title {
+  font-size: 2.75rem;
+  font-weight: 700;
+}
+.header__soft {
+  font-family: var(--font-code);
+  font-weight: 400;
+}
+.header__subtitle {
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-top: 0.25rem;
+}
+.btn-theme {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  background: var(--accent-purple);
+  color: var(--text);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+[data-theme="dark"] .btn-theme {
+  color: white;
+  background: var(--accent-purple);
+}
+.btn-theme:hover {
+  opacity: 0.9;
+}
+
+/* === Mascot === */
+.mascot {
+  text-align: center;
+  margin-top: -1.5rem;
+}
+.mascot__svg {
+  max-width: 200px;
+  height: auto;
+  margin: 0 auto 0.5rem;
+}
+.mascot__message {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--accent-purple);
+  animation: floatUp 4s ease-in-out infinite alternate;
+}
+
+/* === Input Area === */
+.todo__input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.todo__label {
+  font-weight: 600;
+}
+.todo__field {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.todo__add {
+  background: var(--accent-green);
+  color: black;
+  font-weight: bold;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.todo__add:hover {
+  transform: scale(1.05);
+}
+
+/* === Task List === */
+.todo__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.todo__item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 4px 10px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+.todo__item:hover {
+  transform: translateY(-2px);
+}
+.todo__item--done {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.todo__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.todo__checkbox {
+  margin-right: 0.5rem;
+}
+.todo__text {
+  font-size: 1rem;
+  flex: 1;
+}
+.todo__timestamp {
+  font-size: 0.8rem;
+  color: var(--text);
+  opacity: 0.6;
+}
+.todo__delete {
+  background: transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+/* === Colored Accents === */
+.todo__item--pink    { border-left: 6px solid var(--accent-pink); }
+.todo__item--blue    { border-left: 6px solid var(--accent-blue); }
+.todo__item--yellow  { border-left: 6px solid var(--accent-yellow); }
+.todo__item--green   { border-left: 6px solid var(--accent-green); }
+.todo__item--purple  { border-left: 6px solid var(--accent-purple); }
+.todo__item--orange  { border-left: 6px solid var(--accent-orange); }
+
+/* === Empty State === */
+.todo__empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--accent-purple);
+  color: var(--bg);
+  border-radius: var(--radius);
+}
+.todo__empty-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.todo__empty-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.todo__empty-sub,
+.todo__empty-tip {
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  opacity: 0.9;
+}
+
+/* === Footer === */
+.todo__footer {
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  padding-top: 1rem;
+}
+
+/* === Onboarding Dialog === */
+.onboarding {
+  border: none;
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 420px;
+  background: var(--card);
+  box-shadow: 0 4px 20px var(--shadow);
+  text-align: center;
+}
+.onboarding h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.onboarding p {
+  margin-bottom: 1rem;
+}
+.onboarding button {
+  background: var(--accent-pink);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* === Animations === */
+@keyframes floatUp {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
