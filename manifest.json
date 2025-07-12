@@ -1,7 +1,8 @@
 {
-  "name": "To-Do Soft 🌸 — A Gentle Task Companion",
-  "short_name": "To-Do Soft 🌸",
-  "description": "A pastel to-do list with soft UI, cheerful mascot, gentle encouragement, and playful confetti. Designed for cozy productivity with care. 💖",
+  "id": "/",
+  "name": "To-Do Soft 🌸",
+  "short_name": "To-Do Soft",
+  "description": "A soft, pastel to-do app with a bunny mascot, task streaks, and cozy productivity. Works offline and feels like a hug.",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
@@ -28,20 +29,22 @@
       "src": "assets/screenshots/home-light.png",
       "sizes": "640x1136",
       "type": "image/png",
-      "label": "Light Mode — Pastel UI with Tasks and Mascot"
+      "label": "Light mode with tasks and mascot"
     },
     {
       "src": "assets/screenshots/home-dark.png",
       "sizes": "640x1136",
       "type": "image/png",
-      "label": "Dark Mode — Gentle Checklist + Mascot Encouragement"
+      "label": "Dark mode showing streaks and confetti"
     }
   ],
   "categories": [
     "productivity",
-    "lifestyle",
-    "journaling",
     "self-care",
-    "focus"
-  ]
+    "focus",
+    "lifestyle",
+    "organization"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

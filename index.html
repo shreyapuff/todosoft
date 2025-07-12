@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fcb3c1" />
-  <meta name="description" content="A soft, pastel to-do app that cheers you on." />
+  <meta name="description" content="A soft, pastel to-do app with a bunny mascot, task streaks, and cozy productivity." />
   <meta property="og:title" content="To-Do Soft 🌸" />
-  <meta property="og:description" content="A Pomodoro-ready to-do app with a cheering bunny and gentle streak tracking." />
+  <meta property="og:description" content="A Pomodoro-ready pastel task app with a cheering bunny and cozy streak tracking." />
   <meta property="og:image" content="assets/icons/icon-512.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -22,17 +22,26 @@
     <header class="header">
       <h1 class="header__title">To-Do <span class="header__soft">Soft</span> 🌸</h1>
       <p class="header__subtitle">A calm, focused space for your day</p>
-      <button class="header__theme-toggle btn-theme" id="themeToggle" aria-label="Toggle theme">🌞 Light</button>
+      <button class="header__theme-toggle btn-theme" id="themeToggle" aria-label="Toggle theme">
+        🌞 Switch to Dark
+      </button>
     </header>
 
     <figure class="mascot">
-      <img src="assets/mascot.png" alt="A gentle bunny mascot cheering you on" class="mascot__svg" />
+      <img src="assets/mascot.png" alt="Bunny mascot cheering you on" class="mascot__svg" />
       <figcaption class="mascot__message" id="mascotMessage">You got this! 🐇</figcaption>
     </figure>
 
     <section class="todo__input" aria-label="Add a new task">
       <label for="taskInput" class="todo__label">What’s on your mind today?</label>
-      <input type="text" id="taskInput" class="todo__field" placeholder="Write a task..." autocomplete="off" />
+      <input
+        type="text"
+        id="taskInput"
+        class="todo__field"
+        placeholder="Write a task..."
+        autocomplete="off"
+        aria-label="Task input field"
+      />
       <button id="addTask" class="todo__add" aria-label="Add new task">Add ➕</button>
     </section>
 

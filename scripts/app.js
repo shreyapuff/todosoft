@@ -9,29 +9,36 @@
   const onboarding = document.getElementById("onboarding");
   const closeOnboarding = document.getElementById("closeOnboarding");
 
-  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  let tasks = [];
 
   // === Init ===
+  try {
+    tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  } catch {
+    tasks = [];
+  }
+
   renderTasks();
   updateStreak();
   checkEmpty();
+
   if (!localStorage.getItem("seenOnboarding")) {
     onboarding.showModal();
   }
 
-  // === Theme toggle ===
+  // === THEME TOGGLE ===
   themeToggle.addEventListener("click", () => {
     const html = document.documentElement;
     const current = html.getAttribute("data-theme");
     const next = current === "light" ? "dark" : "light";
+
     html.setAttribute("data-theme", next);
-    themeToggle.textContent = next === "light" ? "🌞 Light" : "🌙 Dark";
-    document
-      .querySelector('meta[name="theme-color"]')
+    themeToggle.textContent = next === "light" ? "🌙 Switch to Dark" : "🌞 Switch to Light";
+    document.querySelector('meta[name="theme-color"]')
       .setAttribute("content", next === "light" ? "#fcb3c1" : "#18141c");
   });
 
-  // === Add task ===
+  // === CREATE TASK ELEMENT ===
   function createTaskElement(taskObj, index) {
     const { text, time, done, color } = taskObj;
     const li = document.createElement("li");
@@ -44,6 +51,7 @@
     checkbox.type = "checkbox";
     checkbox.className = "todo__checkbox";
     checkbox.checked = done;
+    checkbox.setAttribute("aria-label", `Mark task "${text}" as ${done ? "incomplete" : "complete"}`);
 
     const taskText = document.createElement("p");
     taskText.className = "todo__text";
@@ -53,6 +61,7 @@
     deleteBtn.className = "todo__delete";
     deleteBtn.innerText = "🗑️";
     deleteBtn.title = "Delete task";
+    deleteBtn.setAttribute("aria-label", `Delete task: ${text}`);
 
     const timestamp = document.createElement("span");
     timestamp.className = "todo__timestamp";
@@ -61,8 +70,8 @@
     checkbox.addEventListener("change", () => {
       taskObj.done = checkbox.checked;
       li.classList.toggle("todo__item--done");
-      showMascotMessage(checkbox.checked ? "Nice one! ✅" : "You got this! 🐇");
-      triggerConfetti();
+      showMascotMessage(checkbox.checked ? getRandomPraise() : "You got this! 🐇");
+      if (checkbox.checked) triggerConfetti();
       saveTasks();
       updateStreak();
     });
@@ -79,6 +88,7 @@
     return li;
   }
 
+  // === ADD TASK ===
   function addTask() {
     const text = taskInput.value.trim();
     if (!text) return;
@@ -96,6 +106,7 @@
     taskInput.value = "";
   }
 
+  // === RENDER / REFRESH ===
   function refreshList() {
     taskList.innerHTML = "";
     renderTasks();
@@ -103,36 +114,49 @@
     checkEmpty();
   }
 
-  // === Render tasks ===
   function renderTasks() {
     tasks.forEach((task, i) => {
       taskList.appendChild(createTaskElement(task, i));
     });
   }
 
-  // === Save + Load ===
+  // === SAVE TASKS ===
   function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
-  // === Empty state ===
+  // === EMPTY STATE ===
   function checkEmpty() {
     emptyState.style.display = tasks.length === 0 ? "block" : "none";
   }
 
-  // === Mascot Messages ===
-  function showMascotMessage(msg) {
-    mascotMessage.textContent = msg;
-  }
-
-  // === Streak ===
+  // === STREAK ===
   function updateStreak() {
     const completed = tasks.filter(t => t.done).length;
     streakDisplay.textContent = `Streak: ${completed} task${completed !== 1 ? "s" : ""} ✅`;
   }
 
-  // === Confetti Animation ===
+  // === MASCOT MESSAGES ===
+  function showMascotMessage(msg) {
+    mascotMessage.textContent = msg;
+  }
+
+  function getRandomPraise() {
+    const phrases = [
+      "Nice one! ✅",
+      "Well done! 🌟",
+      "Look at you go! 🐰",
+      "Task conquered! 💪",
+      "You're unstoppable! ✨",
+      "Another one bites the dust 🧹",
+    ];
+    return phrases[Math.floor(Math.random() * phrases.length)];
+  }
+
+  // === CONFETTI ===
   function triggerConfetti() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const sparkle = document.createElement("div");
     sparkle.textContent = "✨";
     sparkle.style.position = "absolute";
@@ -141,21 +165,26 @@
     sparkle.style.fontSize = "1.5rem";
     sparkle.style.opacity = "0";
     sparkle.style.transition = "all 1s ease";
+    sparkle.style.zIndex = 9999;
     document.body.appendChild(sparkle);
+
     requestAnimationFrame(() => {
       sparkle.style.transform = "translateY(-20px)";
       sparkle.style.opacity = "1";
     });
+
     setTimeout(() => sparkle.remove(), 1000);
   }
 
-  // === Event Listeners ===
-  addBtn.addEventListener("click", addTask);
-  taskInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") addTask();
-  });
+  // === ONBOARDING CLOSE ===
   closeOnboarding.addEventListener("click", () => {
     onboarding.close();
     localStorage.setItem("seenOnboarding", "true");
+  });
+
+  // === EVENT LISTENERS ===
+  addBtn.addEventListener("click", addTask);
+  taskInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") addTask();
   });
 })();
